@@ -65,21 +65,20 @@ Rails.application.configure do
   # the I18n.default_locale when a translation cannot be found).
   config.i18n.fallbacks = true
 
-  HOST = 'sessions.minnestar.org'
+  HOST = 'salty-coast-77523.herokuapp.com'
   config.action_mailer.default_url_options = { host: HOST }
   ActionMailer::Base.smtp_settings = {
-    :user_name => Rails.application.secrets.mandrill_username,
-    :password => Rails.application.secrets.mandrill_password,
-    :address => 'smtp.mandrillapp.com',
-    :port => 587,
-    :authentication => 'login',
-    :enable_starttls_auto => true,
+    :user_name => ENV['MAILGUN_SMTP_LOGIN'],
+    :password => ENV['MAILGUN_SMTP_PASSWORD'],
+    :address => ENV['MAILGUN_SMTP_SERVER'],
+    :port => ENV['MAILGUN_SMTP_PORT'],
+    :authentication => :plain,
     :domain => HOST
   }
 
   config.action_mailer.perform_deliveries = true
   config.action_mailer.raise_delivery_errors = true
-  config.action_mailer.default_options = {from: "no-reply@minnestar.org" }
+  config.action_mailer.default_options = {from: "no-reply@salty-coast-77523.herokuapp.com" }
 
   # Send deprecation notices to registered listeners.
   config.active_support.deprecation = :notify
